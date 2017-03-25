@@ -1,0 +1,22 @@
+#!/bin/bash
+# Donne l'hexa au format \x..\x..  d'un binaire SHELLCODE
+
+if [ $# = 1 ]
+then
+commande="xxd -c 256 -p $1"
+chaine="$(eval $commande)"
+chaine_len=${#chaine}
+len=$chaine_len
+let "chaine_len = ($chaine_len/2)+($chaine_len%2)"
+printf "\n\nTaille (octet) = $chaine_len\n\n"
+
+let "l1=0"
+while [ $l1 -lt $len ]
+do
+echo -n "\\x"${chaine:$l1:2}
+let "l1+=2"
+done
+printf "\n\n"
+else
+printf "Usage :$0 <Bin>\n"
+fi
