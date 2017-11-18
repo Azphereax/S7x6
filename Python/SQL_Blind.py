@@ -45,10 +45,9 @@ print("\nGet or Post Injection (type G or P) : ",end="")
 while Get_or_Post!="G" and Get_or_Post!="P":
     Get_or_Post=input()
 while Url_success:
-    if(Get_or_Post=="P"):
-        User_test=input("\nNom de l'utilisateur (Laisser vide si inconnu) : ")
-        if(User_test!=""):
-            User=User_test;
+    User_test=input("\nNom de l'utilisateur (Laisser vide si inconnu) : ")
+    if(User_test!=""):
+        User=User_test;
     Champ_user_test=input("\nNom du champ username (Laisser vide si inconnu) : ")
     if(Champ_user_test!=""):
         Champ_user=Champ_user_test;
