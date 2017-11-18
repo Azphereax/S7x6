@@ -116,7 +116,8 @@ while end==False:
         letter+=1
 
     if(letter>126 or Num_pswd>len_passwd):
-        print("\n# Arret : Aucun mot de passe trouve #\nletter="+str(letter)+"\nlen_passwd="+str(len_passwd)+"\npassword="+password+"\nNum_pswd="+str(Num_pswd))
+        print("Game Over !")
+        #print("\n# Arret : Aucun mot de passe trouve #\nletter="+str(letter)+"\nlen_passwd="+str(len_passwd)+"\npassword="+password+"\nNum_pswd="+str(Num_pswd))
         break
 
     if Get_or_Post=="G":
